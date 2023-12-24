@@ -24,9 +24,10 @@ class _OrdersScreenFreeState extends State<OrdersScreenFree> {
     final orderProvider = Provider.of<OrderProvider>(context);
     return Scaffold(
       appBar: AppBar(
-        title: AppNameTextWidget(
-          text: 'Placed orders(${orderProvider.getOrders.length})',
+        title:const AppNameTextWidget(
+          text: 'Placed orders',
             fontSize: 24,
+            // 'Placed orders(${orderProvider.getOrders.length})'
         ),
       ),
       body: FutureBuilder<List<OrdersModelAdvanced>>(

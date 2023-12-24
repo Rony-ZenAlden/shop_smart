@@ -24,11 +24,13 @@ class ProfileScreen extends StatefulWidget {
   State<ProfileScreen> createState() => _ProfileScreenState();
 }
 
-class _ProfileScreenState extends State<ProfileScreen> with AutomaticKeepAliveClientMixin {
+class _ProfileScreenState extends State<ProfileScreen>
+    with AutomaticKeepAliveClientMixin {
   bool get wantKeepAlive => true;
   User? user = FirebaseAuth.instance.currentUser;
   UserModel? userModel;
   bool _isLoading = true;
+
   Future<void> fetchUserInfo() async {
     final userProvider = Provider.of<UserProvider>(context, listen: false);
     try {
@@ -230,7 +232,9 @@ class _ProfileScreenState extends State<ProfileScreen> with AutomaticKeepAliveCl
                           await FirebaseAuth.instance.signOut();
                           if (!mounted) return;
                           Navigator.pushReplacementNamed(
-                              context, LoginScreen.routeName);
+                            context,
+                            LoginScreen.routeName,
+                          );
                         },
                         isError: false,
                       );
@@ -253,8 +257,10 @@ class CustomListTile extends StatelessWidget {
     required this.text,
     required this.function,
   });
+
   final String imagePath, text;
   final Function function;
+
   @override
   Widget build(BuildContext context) {
     return ListTile(

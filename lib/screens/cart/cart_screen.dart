@@ -1,18 +1,27 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_paypal_checkout/flutter_paypal_checkout.dart';
+import 'package:flutter_paypal_payment/flutter_paypal_payment.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 import 'package:shop_smart/screens/loading_manager.dart';
 import 'package:uuid/uuid.dart';
 
+import '../../models/product_model.dart';
 import '../../providers/cart_provider.dart';
 import '../../providers/products_provider.dart';
 import '../../providers/user_provider.dart';
 import '../../services/assets_manager.dart';
 import '../../services/my_app_functions.dart';
+import '../../services/payment/model/items_model.dart';
+import '../../services/payment/model/transaction_model.dart';
 import '../../widgets/app_name_text.dart';
 import '../../widgets/empty_bag.dart';
 import '../../widgets/title_text.dart';
+import '../inner_screen/orders/orders_screen.dart';
 import 'bottom_checkout.dart';
 import 'cart_widget.dart';
 
@@ -25,6 +34,7 @@ class CartScreen extends StatefulWidget {
 
 class _CartScreenState extends State<CartScreen> {
   bool _isLoading = false;
+  String lol = 'Hello  Baby';
 
   @override
   Widget build(BuildContext context) {
@@ -47,11 +57,86 @@ class _CartScreenState extends State<CartScreen> {
         : Scaffold(
             bottomSheet: CartBottomSheetWidget(
               function: () async {
-                await placeOrderAdvanced(
-                  cartProvider: cartProvider,
-                  productProvider: productsProvider,
-                  userProvider: userProvider,
-                );
+
+                // var amount = Amount(
+                //   total: "100",
+                //   currency: 'USD',
+                //   details: Details(
+                //     shipping: "0",
+                //     shippingDiscount: 0,
+                //     subtotal: '100',
+                //   ),
+                // );
+                //
+                // List<OrderItemModel> orders = [
+                //   OrderItemModel(
+                //     name: 'Apple',
+                //     price: "4",
+                //     currency: 'USD',
+                //     quantity: 10,
+                //   ),
+                //   OrderItemModel(
+                //     name: 'Apple',
+                //     price: "5",
+                //     currency: 'USD',
+                //     quantity: 12,
+                //   ),
+                // ];
+                // var itemList = ItemListModel(
+                //   items: orders,
+                // );
+
+
+                var transactionData = getTransaction();
+                Navigator.of(context).push(MaterialPageRoute(
+                  builder: (BuildContext context) => PaypalCheckoutView(
+                    sandboxMode: true,
+                    clientId:
+                    "AUVOO88x47ACLhktvCfLpST_FvoNe_f145vGcti1eyPBL6i6AVDmDqol8RP9RFTtQNCJwE7YhAwyfUHR",
+                    secretKey:
+                    "EMrbcl_LhdVO48iFbrt0YrjExfopavHfqs6nNjaoMVWDoJHFh16t3_17zhpeB3lCIRxG24DkDialPJia",
+                    transactions: [
+                      {
+                        "amount": transactionData.amount.toJson(),
+                        "description": "The payment transaction description.",
+                        "item_list": transactionData.itemList.toJson(),
+                      }
+                    ],
+                    note: "Contact us for any questions on your order.",
+                    onSuccess: (Map params) async {
+                      log("onSuccess: $params");
+                      Navigator.pop(context);
+                      // Navigator.of(context).push(MaterialPageRoute(builder: (ctx) => OrdersScreenFree()));
+                      await placeOrderAdvanced(
+                        cartProvider: cartProvider,
+                        productProvider: productsProvider,
+                        userProvider: userProvider,
+                      );
+                      Fluttertoast.showToast(
+                        msg: 'Payment Success',
+                      );
+                    },
+                    onError: (error) async{
+                      log("onError: $error");
+                      Navigator.pop(context);
+                      await placeOrderAdvanced(
+                          cartProvider: cartProvider,
+                          productProvider: productsProvider,
+                          userProvider: userProvider,
+                      );
+                      Fluttertoast.showToast(
+                        msg: 'Payment Success',
+                      );
+                    },
+                    onCancel: () {
+                      print('cancelled:');
+                      Navigator.pop(context);
+                      Fluttertoast.showToast(
+                        msg: 'Payment Cancel',
+                      );
+                    },
+                  ),
+                ));
               },
             ),
             appBar: AppBar(
@@ -158,4 +243,49 @@ class _CartScreenState extends State<CartScreen> {
       });
     }
   }
+  ({Amount amount, ItemListModel itemList}) getTransaction() {
+    var amount = Amount(
+      total: "100",
+      currency: 'USD',
+      details: Details(
+        shipping: "0",
+        shippingDiscount: 0,
+        subtotal: '100',
+      ),
+    );
+
+    List<OrderItemModel> orders = [
+      OrderItemModel(
+        name: 'Apple',
+        price: "4",
+        currency: 'USD',
+        quantity: 10,
+      ),
+      OrderItemModel(
+        name: 'Apple',
+        price: "5",
+        currency: 'USD',
+        quantity: 12,
+      ),
+    ];
+    var itemList = ItemListModel(
+      items: orders,
+    );
+
+    return (amount: amount, itemList: itemList);
+  }
 }
+
+// await placeOrderAdvanced(
+// cartProvider: cartProvider,
+// productProvider: productsProvider,
+// userProvider: userProvider,
+// );
+// Fluttertoast.showToast(
+// msg: 'Payment success',
+// );
+
+// https://b2b-go.com/successpaypaltest.php
+
+// https://samplesite.com/return
+// https://samplesite.com/cancel

@@ -115,9 +115,9 @@ class CartProvider with ChangeNotifier {
       });
       //await fetchCart();
       _cartItems.clear();
-      Fluttertoast.showToast(
-        msg: 'Cart Has Been Cleared',
-      );
+      // Fluttertoast.showToast(
+      //   msg: 'Cart Has Been Cleared',
+      // );
     } catch (e) {
       rethrow;
     }

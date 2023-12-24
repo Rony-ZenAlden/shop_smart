@@ -37,9 +37,10 @@ class CartBottomSheetWidget extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     FittedBox(
-                        child: TitlesTextWidget(
-                            label:
-                                "Total (products: ${cartProvider.getCartitems.length} / items: ${cartProvider.getQty()})")),
+                      child: TitlesTextWidget(
+                          label:
+                              "Total (products: ${cartProvider.getCartitems.length} / items: ${cartProvider.getQty()})"),
+                    ),
                     SubtitleTextWidget(
                       label:
                           "${cartProvider.getTotal(productsProvider: productsProvider).toStringAsFixed(2)}\$",

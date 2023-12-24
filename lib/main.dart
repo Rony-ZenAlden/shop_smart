@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
@@ -36,8 +37,34 @@ void main() async{
   });
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+
+  final auth = FirebaseAuth.instance;
+  var isload = false;
+
+  checkIfLogin() {
+    auth.authStateChanges().listen((User? user) {
+      if(user != null && mounted) {
+        setState(() {
+          isload = true;
+        });
+      }
+    });
+  }
+  @override
+  void initState() {
+    checkIfLogin();
+    // TODO: implement initState
+    super.initState();
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -72,7 +99,7 @@ class MyApp extends StatelessWidget {
             title: 'Shop-Smart',
             theme: Styles.themeData(
                 isDarkTheme: themeProvider.getIsDarkTheme, context: context),
-            home: const LoginScreen(),
+            home:isload ? const RootScreen() : const LoginScreen(),
             routes: {
               ProductDetailsScreen.routName: (context) =>
                   const ProductDetailsScreen(),

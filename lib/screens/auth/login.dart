@@ -2,7 +2,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shop_smart/screens/auth/register.dart';
+import 'package:shop_smart/screens/home_screen.dart';
 import '../../constant/validator.dart';
 import '../../root_screen.dart';
 import '../../services/my_app_functions.dart';
@@ -33,6 +35,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final _formkey = GlobalKey<FormState>();
   bool _isLoading = false;
   final auth = FirebaseAuth.instance;
+  var isload = false;
 
   @override
   void initState() {
@@ -111,7 +114,7 @@ class _LoginScreenState extends State<LoginScreen> {
               child: Column(
                 children: [
                   const SizedBox(
-                    height:80,
+                    height: 80,
                   ),
                   const AppNameTextWidget(
                     text: 'Shop Smart',
@@ -270,7 +273,10 @@ class _LoginScreenState extends State<LoginScreen> {
                                         ),
                                       ),
                                     ),
-                                    child: const Text("Guest?",style: TextStyle(fontSize: 18),),
+                                    child: const Text(
+                                      "Guest?",
+                                      style: TextStyle(fontSize: 18),
+                                    ),
                                     onPressed: () async {
                                       Navigator.of(context)
                                           .pushNamed(RootScreen.routeName);
