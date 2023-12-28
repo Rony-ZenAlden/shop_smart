@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import '../../constant/validator.dart';
@@ -8,6 +9,7 @@ import '../../widgets/title_text.dart';
 
 class ForgotPasswordScreen extends StatefulWidget {
   static const routeName = '/ForgotPasswordScreen';
+
   const ForgotPasswordScreen({super.key});
 
   @override
@@ -15,14 +17,14 @@ class ForgotPasswordScreen extends StatefulWidget {
 }
 
 class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
-  late final TextEditingController _emailController;
+  final _emailController = TextEditingController();
   late final _formKey = GlobalKey<FormState>();
 
-  @override
-  void initState() {
-    _emailController = TextEditingController();
-    super.initState();
-  }
+  // @override
+  // void initState() {
+  //   _emailController = TextEditingController();
+  //   super.initState();
+  // }
 
   @override
   void dispose() {
@@ -38,13 +40,38 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
     if (isValid) {}
   }
 
+  Future passwordReset() async {
+    try {
+      await FirebaseAuth.instance
+          .sendPasswordResetEmail(email: _emailController.text.trim());
+      showDialog(
+        context: context,
+        builder: (ctx) => AlertDialog(
+          content: Text('Password Reset'),
+        ),
+      );
+    } on FirebaseAuthException catch (e) {
+      showDialog(
+        context: context,
+        builder: (ctx) => AlertDialog(
+          content: Text(
+            e.message.toString(),
+          ),
+        ),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: const AppNameTextWidget(text: 'Shop Smart',fontSize: 28,),
+        title: const AppNameTextWidget(
+          text: 'Shop Smart',
+          fontSize: 28,
+        ),
       ),
       body: GestureDetector(
         onTap: () {
@@ -130,7 +157,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                     ),
                   ),
                   onPressed: () async {
-                    _forgetPassFCT();
+                    passwordReset();
                   },
                 ),
               ),
