@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 import '../models/user_model.dart';
@@ -35,9 +34,11 @@ class UserProvider with ChangeNotifier {
         createdAt: userDoc.get('createdAt'),
       );
       return userModel;
-    } on FirebaseException catch (error) {
-      rethrow;
-    } catch (error) {
+    }
+    // on FirebaseException catch (error) {
+    //   rethrow;
+    // }
+    catch (error) {
       rethrow;
     }
   }

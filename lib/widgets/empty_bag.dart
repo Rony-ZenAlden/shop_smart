@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:shop_smart/screens/home_screen.dart';
-
 import '../root_screen.dart';
 import 'subtitle_text.dart';
 import 'title_text.dart';
@@ -15,6 +13,7 @@ class EmptyBagWidget extends StatelessWidget {
   });
 
   final String imagePath, title, subtitle, buttonText;
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -67,7 +66,13 @@ class EmptyBagWidget extends StatelessWidget {
             onPressed: () {
               Navigator.pushReplacementNamed(context, RootScreen.routeName);
             },
-            child: Text(buttonText),
+            child: Text(
+              buttonText,
+              style: const TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
           ),
         ],
       ),

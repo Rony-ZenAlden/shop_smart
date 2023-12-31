@@ -3,14 +3,11 @@ import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_paypal_checkout/flutter_paypal_checkout.dart';
 import 'package:flutter_paypal_payment/flutter_paypal_payment.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 import 'package:shop_smart/screens/loading_manager.dart';
 import 'package:uuid/uuid.dart';
-
-import '../../models/product_model.dart';
 import '../../providers/cart_provider.dart';
 import '../../providers/products_provider.dart';
 import '../../providers/user_provider.dart';
@@ -20,8 +17,6 @@ import '../../services/payment/model/items_model.dart';
 import '../../services/payment/model/transaction_model.dart';
 import '../../widgets/app_name_text.dart';
 import '../../widgets/empty_bag.dart';
-import '../../widgets/title_text.dart';
-import '../inner_screen/orders/orders_screen.dart';
 import 'bottom_checkout.dart';
 import 'cart_widget.dart';
 

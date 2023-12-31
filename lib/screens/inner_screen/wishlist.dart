@@ -8,7 +8,6 @@ import '../../services/my_app_functions.dart';
 import '../../widgets/app_name_text.dart';
 import '../../widgets/empty_bag.dart';
 import '../../widgets/products/product_widget.dart';
-import '../../widgets/title_text.dart';
 
 class WishlistScreen extends StatelessWidget {
   static const routName = "/WishlistScreen";

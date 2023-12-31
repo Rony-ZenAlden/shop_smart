@@ -2,9 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shop_smart/screens/auth/register.dart';
-import 'package:shop_smart/screens/home_screen.dart';
 import '../../constant/validator.dart';
 import '../../root_screen.dart';
 import '../../services/my_app_functions.dart';
@@ -205,8 +203,9 @@ class _LoginScreenState extends State<LoginScreen> {
                               label: "Forgot password?",
                               fontStyle: FontStyle.italic,
                               textDecoration: TextDecoration.underline,
-                              fontWeight: FontWeight.w400,
+                              fontWeight: FontWeight.w500,
                               fontSize: 19,
+                              color: Colors.blue,
                             ),
                           ),
                         ),
@@ -225,10 +224,10 @@ class _LoginScreenState extends State<LoginScreen> {
                                 ),
                               ),
                             ),
-                            icon: const Icon(Icons.login),
+                            icon: const Icon(Icons.login,color: Colors.black87,),
                             label: const Text(
                               "Login",
-                              style: TextStyle(fontSize: 18),
+                              style: TextStyle(fontSize: 18,color: Colors.black87),
                             ),
                             onPressed: () async {
                               await _loginFct();
@@ -275,7 +274,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                     ),
                                     child: const Text(
                                       "Guest?",
-                                      style: TextStyle(fontSize: 18),
+                                      style: TextStyle(fontSize: 18,color: Colors.black87),
                                     ),
                                     onPressed: () async {
                                       Navigator.of(context)
@@ -299,7 +298,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                 label: "Sign up",
                                 fontStyle: FontStyle.italic,
                                 textDecoration: TextDecoration.underline,
-                                fontWeight: FontWeight.w400,
+                                fontWeight: FontWeight.w700,
+                                color: Colors.blue,
                               ),
                               onPressed: () {
                                 Navigator.of(context)

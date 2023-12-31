@@ -48,7 +48,7 @@ class OrderProvider with ChangeNotifier {
     required String orderId,
 
   }) async{
-    final User? user = auth.currentUser;
+    // final User? user = auth.currentUser;
     try {
       await orderDb.doc(orderId).delete();
       notifyListeners();

@@ -40,9 +40,9 @@ class WishlistProvider with ChangeNotifier {
           }
         ]),
       });
-      Fluttertoast.showToast(
-        msg: 'Item Has Been Added',
-      );
+      // Fluttertoast.showToast(
+      //   msg: 'Item Has Been Added',
+      // );
     } catch (e) {
       rethrow;
     }
@@ -91,9 +91,9 @@ class WishlistProvider with ChangeNotifier {
         ]),
       });
       _wishlistItems.remove(productId);
-      Fluttertoast.showToast(
-        msg: 'Item Has Been Removed',
-      );
+      // Fluttertoast.showToast(
+      //   msg: 'Item Has Been Removed',
+      // );
     } catch (e) {
       rethrow;
     }

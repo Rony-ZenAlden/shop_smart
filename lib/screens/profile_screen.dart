@@ -219,8 +219,14 @@ class _ProfileScreenState extends State<ProfileScreen>
                       ),
                     ),
                   ),
-                  icon: Icon(user == null ? Icons.login : Icons.logout),
-                  label: Text(user == null ? "Login" : "Logout"),
+                  icon: Icon(user == null ? Icons.login : Icons.logout,color: Colors.white,),
+                  label: Text(
+                    user == null ? "Login" : "Logout",
+                    style:const TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.w500
+                    ),
+                  ),
                   onPressed: () async {
                     if (user == null) {
                       Navigator.pushNamed(context, LoginScreen.routeName);

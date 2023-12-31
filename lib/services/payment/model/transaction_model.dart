@@ -37,7 +37,7 @@ class Details {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['subtotal'] = subtotal;
     data['shipping'] = shipping;
     data['shipping_discount'] = shippingDiscount;

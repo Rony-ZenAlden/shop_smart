@@ -6,7 +6,6 @@ import 'package:shop_smart/widgets/app_name_text.dart';
 import 'package:shop_smart/widgets/empty_bag.dart';
 import '../../../models/order_model.dart';
 import '../../../providers/order_provider.dart';
-import '../../../widgets/title_text.dart';
 
 class OrdersScreenFree extends StatefulWidget {
   static const routeName = '/OrderScreen';

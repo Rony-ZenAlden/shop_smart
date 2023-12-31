@@ -1,7 +1,6 @@
-import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 import '../../models/cart_model.dart';
 import '../../providers/cart_provider.dart';
 import '../../widgets/subtitle_text.dart';

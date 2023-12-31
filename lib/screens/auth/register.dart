@@ -176,7 +176,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   const SizedBox(
                     height: 60,
                   ),
-                  const AppNameTextWidget(text: 'Shop Smart',fontSize: 28,),
+                  const AppNameTextWidget(
+                    text: 'Shop Smart',
+                    fontSize: 28,
+                  ),
                   const SizedBox(
                     height: 30,
                   ),
@@ -331,17 +334,23 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           child: ElevatedButton.icon(
                             style: ElevatedButton.styleFrom(
                               padding: const EdgeInsets.all(12.0),
-                              // backgroundColor: Colors.red,
+                              backgroundColor: Colors.blue,
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(
                                   12.0,
                                 ),
                               ),
                             ),
-                            icon: const Icon(IconlyLight.addUser),
+                            icon: const Icon(
+                              IconlyLight.addUser,
+                              color: Colors.white,
+                            ),
                             label: const Text(
                               "Sign up",
-                              style: TextStyle(fontSize: 17),
+                              style: TextStyle(
+                                fontSize: 17,
+                                color: Colors.white,
+                              ),
                             ),
                             onPressed: () async {
                               await _registerFCT();
