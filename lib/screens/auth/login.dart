@@ -224,10 +224,14 @@ class _LoginScreenState extends State<LoginScreen> {
                                 ),
                               ),
                             ),
-                            icon: const Icon(Icons.login,color: Colors.black87,),
+                            icon: const Icon(
+                              Icons.login,
+                              color: Colors.black87,
+                            ),
                             label: const Text(
                               "Login",
-                              style: TextStyle(fontSize: 18,color: Colors.black87),
+                              style: TextStyle(
+                                  fontSize: 18, color: Colors.black87),
                             ),
                             onPressed: () async {
                               await _loginFct();
@@ -238,30 +242,19 @@ class _LoginScreenState extends State<LoginScreen> {
                           height: 16.0,
                         ),
                         SubtitleTextWidget(
-                          label: "Or connect using".toUpperCase(),
+                          label: "Or Enter As".toUpperCase(),
                         ),
                         const SizedBox(
-                          height: 16.0,
+                          height: 10.0,
                         ),
                         SizedBox(
+                          width: MediaQuery.of(context).size.width -80,
                           height: kBottomNavigationBarHeight + 10,
                           child: Row(
                             children: [
-                              const Expanded(
-                                flex: 2,
-                                child: SizedBox(
-                                  height: kBottomNavigationBarHeight,
-                                  child: FittedBox(
-                                    child: GoogleButton(),
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(
-                                width: 8,
-                              ),
                               Expanded(
                                 child: SizedBox(
-                                  height: kBottomNavigationBarHeight,
+                                  height: kBottomNavigationBarHeight - 8,
                                   child: ElevatedButton(
                                     style: ElevatedButton.styleFrom(
                                       padding: const EdgeInsets.all(12.0),
@@ -273,8 +266,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                       ),
                                     ),
                                     child: const Text(
-                                      "Guest?",
-                                      style: TextStyle(fontSize: 18,color: Colors.black87),
+                                      "Guest",
+                                      style: TextStyle(
+                                          fontSize: 18, color: Colors.black87),
                                     ),
                                     onPressed: () async {
                                       Navigator.of(context)
@@ -287,7 +281,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                         ),
                         const SizedBox(
-                          height: 16.0,
+                          height: 10.0,
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
