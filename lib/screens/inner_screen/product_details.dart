@@ -1,6 +1,11 @@
+import 'dart:io';
+
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
+import 'package:share_plus/share_plus.dart';
 import '../../providers/cart_provider.dart';
 import '../../providers/products_provider.dart';
 import '../../services/my_app_functions.dart';
@@ -8,9 +13,11 @@ import '../../widgets/app_name_text.dart';
 import '../../widgets/products/heart_btn.dart';
 import '../../widgets/subtitle_text.dart';
 import '../../widgets/title_text.dart';
+import 'package:http/http.dart' as http;
 
 class ProductDetailsScreen extends StatefulWidget {
   static const routName = "/ProductDetailsScreen";
+
   const ProductDetailsScreen({super.key});
 
   @override
@@ -18,6 +25,25 @@ class ProductDetailsScreen extends StatefulWidget {
 }
 
 class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
+  // String msg = '50% off on all products http://flutter.dev';
+  // shareText(String fullName) {
+  //   Share.share(fullName);
+  // }
+  //
+  // shareImage(image) async {
+  //   // XFile? image = await ImagePicker().pickImage(source: ImageSource.gallery);
+  //   // if (image == null) return;
+  //   // Share.shareFiles([image.path]);
+  //   final uri = Uri.parse(image);
+  //   final res = await http.put(uri);
+  //   final bytes = res.bodyBytes;
+  //
+  //   final temp = await getTemporaryDirectory();
+  //   final path = '${temp.path}/image.jpg';
+  //   File(path).writeAsBytesSync(bytes);
+  //   await Share.shareFiles([path]);
+  // }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -30,7 +56,6 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
         centerTitle: true,
         leading: IconButton(
           onPressed: () {
-            // Navigator.canPop(context) ? Navigator.pop(context) : null;
             if (Navigator.canPop(context)) {
               Navigator.pop(context);
             }
@@ -86,7 +111,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                           height: 20,
                         ),
                         Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 30),
+                          padding: const EdgeInsets.symmetric(horizontal: 20),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
@@ -109,9 +134,10 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                         ),
                                       ),
                                     ),
-                                    onPressed: () async{
+                                    onPressed: () async {
                                       if (cartProvider.isProdinCart(
-                                          productId: getCurrProduct.productId)) {
+                                          productId:
+                                              getCurrProduct.productId)) {
                                         return;
                                       }
                                       try {
@@ -121,7 +147,8 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                           context: context,
                                         );
                                       } catch (e) {
-                                        await MyAppFunctions.showErrorOrWarningDialog(
+                                        await MyAppFunctions
+                                            .showErrorOrWarningDialog(
                                           context: context,
                                           subtitle: e.toString(),
                                           fct: () {},
@@ -140,6 +167,19 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                         ? "In cart"
                                         : "Add to cart"),
                                   ),
+                                ),
+                              ),
+                              IconButton(
+                                onPressed: () async {
+                                  await Share.share(
+                                    getCurrProduct.productImage,
+                                    subject: getCurrProduct.productTitle,
+                                  );
+                                },
+                                icon: const Icon(
+                                  Icons.share,
+                                  color: Colors.black,
+                                  size: 30,
                                 ),
                               ),
                             ],
